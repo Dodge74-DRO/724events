@@ -13,6 +13,4 @@ export const MONTHS = {
   12: "décembre",
 };
 
-/* @rd GETMONTH rernvoie un entier de 0 à 11 et non 1 à 12 */
-/* @rd export const getMonth = (date) => MONTHS[date.getMonth()]; */
-export const getMonth = (date) => MONTHS[date.getMonth()+1];
+export const getMonth = (date) => MONTHS[date.getMonth()];

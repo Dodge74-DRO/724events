@@ -7,16 +7,12 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-const byDateDesc = data?.focus.sort((evtA, evtB) =>
-/* @rd  trier les éléments du slide par ordre décroissant et non croissant */
-/* @rd  new Date(evtA.date) < new Date(evtB.date) ? -1 : 1 */
-    new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
+  const byDateDesc = data?.focus.sort((evtA, evtB) =>
+    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
   const nextCard = () => {
     setTimeout(
-/* @rd  length - 1 car index commence à 0 */
-/*    () => setIndex(index < byDateDesc.length ? index + 1 : 0), */
-      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0), 
+      () => setIndex(index < byDateDesc.length ? index + 1 : 0),
       5000
     );
   };
@@ -49,9 +45,7 @@ const byDateDesc = data?.focus.sort((evtA, evtB) =>
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-           /* @rd  index et non idx pour mise en évidence radio-button en cours */
-           /* @rd checked={idx === radioIdx} */
-                  checked={index === radioIdx} 
+                  checked={idx === radioIdx}
                 />
               ))}
             </div>
