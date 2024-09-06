@@ -7,30 +7,37 @@ import ModalEvent from "../ModalEvent";
 
 import "./style.css";
 
-const PER_PAGE = 9;
+const PER_PAGE = 6;
 
 const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
-    if (
-      (currentPage - 1) * PER_PAGE <= index &&
-      PER_PAGE * currentPage > index
-    ) {
-      return true;
-    }
-    return false;
-  });
+// @rd filtrer par 'type' et ensuite selon la page à afficher
+// Filtrer les événements en fonction du type sélectionné
+const eventsAfterFilteredByType = (!type
+  ? data?.events
+  : data?.events.filter((event) => event.type === type)) || [];
+// conserver le nombre d'événements après filtrage par type
+  const numberOfEventsAfterFilterByType = eventsAfterFilteredByType.length;
+
+// Filtrer le premier résultat selon la page à afficher
+const filteredEvents = eventsAfterFilteredByType.filter((event, index) => {
+  if (
+    (currentPage - 1) * PER_PAGE <= index &&
+    PER_PAGE * currentPage > index
+  ) {
+    return true;
+  }
+  return false;
+});
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
   };
-  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
+  // @rd calcul du nombre de page erronnée
+  // const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
+  const pageNumber = Math.ceil((numberOfEventsAfterFilterByType || 0) / PER_PAGE); // arrondi à l'entier supérieur
   const typeList = new Set(data?.events.map((event) => event.type));
   return (
     <>
@@ -51,9 +58,12 @@ const EventList = () => {
                   <EventCard
                     onClick={() => setIsOpened(true)}
                     imageSrc={event.cover}
+                    // @rd ajout description pour l'image
+                    imageAlt={event.description}
                     title={event.title}
                     date={new Date(event.date)}
                     label={event.type}
+                    small={false}
                   />
                 )}
               </Modal>

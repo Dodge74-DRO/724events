@@ -6,6 +6,8 @@
   width: 450px;
   position: relative;
   min-height: 669px;
+  border: 2px $primary solid;
+  border-radius: 8px;
   &__imageContainer {
     width: 100%;
     img {

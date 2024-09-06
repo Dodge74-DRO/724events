@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -10,151 +11,176 @@ import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
 import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
+/* @rd ajout import ModalEvent" */
+import ModalEvent from "../../containers/ModalEvent"; // ajout de modalEvent
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
-  return <>
-    <header>
-      <Menu />
-    </header>
-    <main>
-      <section className="SliderContainer">
-        <Slider />
-      </section>
-      <section className="ServicesContainer">
-        <h2 className="Title">Nos services</h2>
-        <p>Nous organisons des événements sur mesure partout dans le monde</p>
-        <div className="ListContainer">
-          <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png">
-            <h3>Soirée d’entreprise</h3>
-            Une soirée d’entreprise vous permet de réunir vos équipes pour un
-            moment convivial afin de valoriser votre société en projetant une
-            image dynamique. Nous vous proposons d’organiser pour vous vos
-            diners et soirée d’entreprise
-          </ServiceCard>
-          <ServiceCard imageSrc="/images/hall-expo.png">
-            <h3>Conférences</h3>
-            724 events vous propose d’organiser votre évènement, quelle que soit
-            sa taille, en s’adaptant à votre demande et à vos demandes. En tant
-            que spécialistes de l’évènementiel, nous saurons trouver le lieu
-            parfait ainsi que des solutions inédites pour capter votre audience
-            et faire de cet évènement un succès
-          </ServiceCard>
-          <ServiceCard imageSrc="/images/sophia-sideri-LFXMtUuAKK8-unsplash1.png">
-            <h3>Experience digitale</h3>
-            Notre agence experte en contenus immersifs offre des services de
-            conseil aux entreprises, pour l’utilisation de la réalité virtuelle,
-            de la réalité augmentée et de la réalité mixte de l’animation
-            événementielle, à la veille technologique jusqu’au développement de
-            module de formation innovant
-          </ServiceCard>
-        </div>
-      </section>
-      <section className="EventsContainer">
-        <h2 className="Title">Nos réalisations</h2>
-        <EventList />
-      </section>
-      <section className="PeoplesContainer">
-        <h2 className="Title">Notre équipe</h2>
-        <p>Une équipe d’experts dédiés à l’ogranisation de vos événements</p>
-        <div className="ListContainer">
-          <PeopleCard
-            imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
-            name="Samira"
-            position="CEO"
-          />
-          <PeopleCard
-            imageSrc="/images/linkedin-sales-solutions-pAtA8xe_iVM-unsplash.png"
-            name="Jean-baptiste"
-            position="Directeur marketing"
-          />
-          <PeopleCard
-            imageSrc="/images/christina-wocintechchat-com-SJvDxw0azqw-unsplash.png"
-            name="Alice"
-            position="CXO"
-          />
-          <PeopleCard
-            imageSrc="/images/jonas-kakaroto-KIPqvvTOC1s-unsplash.png"
-            name="Luís"
-            position="Animateur"
-          />
-          <PeopleCard
-            imageSrc="/images/amy-hirschi-b3AYk8HKCl0-unsplash1.png"
-            name="Christine"
-            position="VP animation"
-          />
-          <PeopleCard
-            imageSrc="/images/christina-wocintechchat-com-0Zx1bDv5BNY-unsplash.png"
-            name="Isabelle"
-            position="VP communication"
-          />
-        </div>
-      </section>
-      <div className="FormContainer" id="contact">
-        <h2 className="Title">Contact</h2>
-        <Modal
-          Content={
-            <div className="ModalMessage--success">
-              <div>Message envoyé !</div>
-              <p>
-                Merci pour votre message nous tâcherons de vous répondre dans
-                les plus brefs délais
-              </p>
-            </div>
-          }
-        >
-          {({ setIsOpened }) => (
-            <Form
-              onSuccess={() => setIsOpened(true)}
-              onError={() => null}
+  const { data } = useData() // @rd on récupère le tableau des évènements
+  // @rd voir le plus ancien et le stocker danss "lastEvent"
+  // Utiliser useMemo pour mémoriser lastEvent
+  const lastEvent = useMemo(() => {
+    if (!data?.events || data.events.length === 0) return null;
+    return data.events.reduce((latest, current) =>
+      new Date(current.date) > new Date(latest.date) ? current : latest,
+      data.events[0]
+    );
+  }, [data?.events]);
+
+  return (
+    <>
+      <header className="row">
+        <Menu />
+      </header>
+      <main>
+        <section className="SliderContainer">
+          <Slider />
+        </section>
+        <section className="ServicesContainer" id="nos_services">
+          <h2 className="Title">Nos services</h2>
+          <p>Nous organisons des évènements sur mesure partout dans le monde</p>
+          <div className="ListContainer">
+            <ServiceCard imageSrc="/images/priscilla-du-preez-Q7wGvnbuwj0-unsplash1.png">
+              <h3>Soirée d’entreprise</h3>
+              Une soirée d’entreprise vous permet de réunir vos équipes pour un
+              moment convivial afin de valoriser votre société en projetant une
+              image dynamique. Nous vous proposons d’organiser pour vous vos
+              diners et soirée d’entreprise
+            </ServiceCard>
+            <ServiceCard imageSrc="/images/hall-expo.png">
+              <h3>Conférences</h3>
+              724 events vous propose d’organiser votre évènement, quelle que soit
+              sa taille, en s’adaptant à votre demande et à vos demandes. En tant
+              que spécialistes de l’évènementiel, nous saurons trouver le lieu
+              parfait ainsi que des solutions inédites pour capter votre audience
+              et faire de cet évènement un succès
+            </ServiceCard>
+            <ServiceCard imageSrc="/images/sophia-sideri-LFXMtUuAKK8-unsplash1.png">
+              <h3>Experience digitale</h3>
+              Notre agence experte en contenus immersifs offre des services de
+              conseil aux entreprises, pour l’utilisation de la réalité virtuelle,
+              de la réalité augmentée et de la réalité mixte de l’animation
+              évènementielle, à la veille technologique jusqu’au développement de
+              module de formation innovant
+            </ServiceCard>
+          </div>
+        </section>
+        <section className="EventsContainer" id="nos_realisations">
+          <h2 className="Title">Nos réalisations</h2>
+          <EventList />
+        </section>
+        <section className="PeoplesContainer" id="notre_equipe">
+          <h2 className="Title">Notre équipe</h2>
+          {/* @rd correction de texte */}
+          {/* @rd <p>Une équipe d’experts dédiés à l’ogranisation de vos évènements</p> */}
+          <p>Une équipe d’experts dédiée à l’organisation de vos évènements</p>
+          <div className="ListContainer">
+            <PeopleCard
+              imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
+              name="Samira"
+              position="CEO"
             />
-          )}
-        </Modal>
-      </div>
-    </main>
-    <footer className="row">
-      <div className="col presta">
-        <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
-      </div>
-      <div className="col contact">
-        <h3>Contactez-nous</h3>
-        <address>45 avenue de la République, 75000 Paris</address>
-        <div>01 23 45 67 89</div>
-        <div>contact@724events.com</div>
-        <div>
-          <a href="#twitch">
-            <Icon name="twitch" />
-          </a>
-          <a href="#facebook">
-            <Icon name="facebook" />
-          </a>
-          <a href="#twitter">
-            <Icon name="twitter" />
-          </a>
-          <a href="#youtube">
-            <Icon name="youtube" />
-          </a>
+            <PeopleCard
+              imageSrc="/images/linkedin-sales-solutions-pAtA8xe_iVM-unsplash.png"
+              name="Jean-baptiste"
+              position="Directeur marketing"
+            />
+            <PeopleCard
+              imageSrc="/images/christina-wocintechchat-com-SJvDxw0azqw-unsplash.png"
+              name="Alice"
+              position="CXO"
+            />
+            <PeopleCard
+              imageSrc="/images/jonas-kakaroto-KIPqvvTOC1s-unsplash.png"
+              name="Luís"
+              position="Animateur"
+            />
+            <PeopleCard
+              imageSrc="/images/amy-hirschi-b3AYk8HKCl0-unsplash1.png"
+              name="Christine"
+              position="VP animation"
+            />
+            <PeopleCard
+              imageSrc="/images/christina-wocintechchat-com-0Zx1bDv5BNY-unsplash.png"
+              name="Isabelle"
+              position="VP communication"
+            />
+          </div>
+        </section>
+        <div className="FormContainer" id="contact">
+          <h2 className="Title">Contact</h2>
+          <Modal
+            Content={
+              <div className="ModalMessage--success">
+                <div>Message envoyé !</div>
+                <p>
+                  Merci pour votre message nous tâcherons de vous répondre dans
+                  les plus brefs délais
+                </p>
+              </div>
+            }
+          >
+            {({ setIsOpened }) => (
+              <Form
+                onSuccess={() => setIsOpened(true)}
+                onError={() => null}
+              />
+            )}
+          </Modal>
         </div>
-      </div>
-      <div className="col description">
-        <Logo size="large" />
-        <p>
-          Une agence événementielle propose des prestations de service
-          spécialisées dans la conception et l&apos;organisation de divers événements
-          tels que des événements festifs, des manifestations sportives et
-          culturelles, des événements professionnels
-        </p>
-      </div>
-    </footer>
-  </>
+      </main>
+      <footer className="arow">
+        <div data-testid="card-testid" className="col presta">
+          <h3>Notre derniére prestation</h3>
+          {!lastEvent ? (  // @rd ajout last évènement pr affichage si 'last' est définie et non nul
+            "affichage en cours ..."
+          ) : (
+            <Modal key={lastEvent?.id} Content={<ModalEvent event={lastEvent} />}>
+              {({ setIsOpened }) => (
+                <EventCard
+                  onClick={() => setIsOpened(true)}
+                  imageSrc={lastEvent?.cover}
+                  title={lastEvent?.title}
+                  date={new Date(lastEvent?.date)}
+                  small
+                  label={lastEvent?.type}
+                />
+              )}
+            </Modal>
+          )}
+        </div>
+        <div className="col contact">
+          <h3>Contactez-nous</h3>
+          <address>45 avenue de la République, 75000 Paris</address>
+          <div>01 23 45 67 89</div>
+          <div>contact@724events.com</div>
+          <div>
+            <a href="#twitch">
+              <Icon name="twitch" />
+            </a>
+            <a href="#facebook">
+              <Icon name="facebook" />
+            </a>
+            <a href="#twitter">
+              <Icon name="twitter" />
+            </a>
+            <a href="#youtube">
+              <Icon name="youtube" />
+            </a>
+          </div>
+        </div>
+        <div className="col description">
+          <Logo size="large" />
+          <p>
+            Une agence évènementielle propose des prestations de service
+            spécialisées dans la conception et l&apos;organisation de divers évènements
+            tels que des évènements festifs, des manifestations sportives et
+            culturelles, des évènements professionnels
+          </p>
+        </div>
+      </footer>
+    </>
+  );
 }
 
 export default Page;

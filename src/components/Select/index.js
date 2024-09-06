@@ -16,9 +16,14 @@ const Select = ({
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    // @rd la fonction changeValue appelle onChange() sans passer la nouvelle valeur sélectionnée
+    // @rd cela empêche le filtrage de fonctionner
+    // @rd onChange();
+    onChange(newValue);
     setValue(newValue);
-    setCollapsed(newValue);
+    // @rd si on click sur 1 catégorie on veut que la liste se ferme (donc newValue ne convient pas)
+    // @rd setCollapsed(newValue);
+    setCollapsed(!collapsed); /* @rd donc on fait comme si l'on voulait refermer sans choix */
   };
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">

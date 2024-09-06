@@ -70,7 +70,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 32px;
+  justify-content: center;
+  /*margin-bottom: 32px;*/
   .Title {
     color: white;
     margin-bottom: 64px;
@@ -79,8 +80,11 @@ main {
     color: white;
   }
   .Button {
-    width: 207px;
-    margin-top: 32px;
+   max-width: 207px;
+   margin-top: 32px;
+   position: relative; /* postulat de départ */
+   top: 50%; left: 50%; /* à 50%/50% du parent référent */
+   transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
   }
 }
 .ListContainer {
@@ -106,6 +110,7 @@ p {
 .row {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 .col {
   display: flex;
@@ -134,6 +139,13 @@ p {
 
 footer {
   padding: 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  @media screen and (max-width: 980px) {
+    flex-wrap: wrap;
+ }
+
   .col {
     margin: 0;
     padding: 32px;
@@ -189,4 +201,6 @@ footer {
     max-width: 360px;
   }
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  border: 2px $primary solid;
+  border-radius: 8px;
 }
