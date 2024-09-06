@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useData } from "../../contexts/DataContext"; // pour accéder aux données définies DataContext
+import { useData } from "../../contexts/DataContext";
 import { getMonth } from "../../helpers/Date";
 
 import "./style.scss";
 
 const Slider = () => {
-  const { data } = useData();             // récupération des données events et focus pr le slider
-  const [index, setIndex] = useState(0);  // initialisation 'index'
-  const [dataFocusSortedByDate, setDataFocusSortedByDate] = useState([]); // initialisation tableau events/focus 
+  const { data } = useData();
+  const [index, setIndex] = useState(0);
+  const [dataFocusSortedByDate, setDataFocusSortedByDate] = useState([]);
 
   useEffect(() => {
     if (data?.focus) {

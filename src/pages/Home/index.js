@@ -65,7 +65,7 @@ const Page = () => {
             </ServiceCard>
           </div>
         </section>
-        <section className="EventsContainer" id="nos_realisations">
+        <section className="EventsContainer" id="nos_realisations" data-testid="listEvents">
           <h2 className="Title">Nos réalisations</h2>
           <EventList />
         </section>
@@ -74,7 +74,7 @@ const Page = () => {
           {/* @rd correction de texte */}
           {/* @rd <p>Une équipe d’experts dédiés à l’ogranisation de vos évènements</p> */}
           <p>Une équipe d’experts dédiée à l’organisation de vos évènements</p>
-          <div className="ListContainer">
+          <div className="ListContainer" data-testid="listOfPeople">
             <PeopleCard
               imageSrc="/images/stephanie-liverani-Zz5LQe-VSMY-unsplash.png"
               name="Samira"
@@ -129,8 +129,8 @@ const Page = () => {
           </Modal>
         </div>
       </main>
-      <footer className="arow">
-        <div data-testid="card-testid" className="col presta">
+      <footer className="row" data-testid="footer">
+        <div className="col presta">
           <h3>Notre derniére prestation</h3>
           {!lastEvent ? (  // @rd ajout last évènement pr affichage si 'last' est définie et non nul
             "affichage en cours ..."

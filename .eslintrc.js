@@ -23,8 +23,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": 'off',
-    "react/function-component-definition": 'off',
-    /*  @rd remettre ON pour mise en ligne */
-    "no-console": 'off'
+    "react/function-component-definition": 'off'
   },
 };
