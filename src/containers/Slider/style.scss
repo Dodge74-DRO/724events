@@ -3,7 +3,7 @@
 .SlideCardList {
   position: relative;
   width: 100%;
-  max-width: 1440px;
+  /*max-width: 1440px;*/
   height: 586px;
   .SlideCard {
     width: 100%;
@@ -11,6 +11,9 @@
     top: 0;
     position: absolute;
     transition: opacity 1s;
+    img{
+      max-width: 100%;
+    }
     &--hide {
       opacity: 0;
     }
@@ -42,7 +45,7 @@
     &__description {
       left: 0;
       bottom: 50px;
-      width: 857px;
+      max-width: 857px;
       background-color: $primary;
       color: white;
       border-radius: 8px;

@@ -31,7 +31,7 @@ describe("When Form is created", () => {
 });
 
 describe("When a page is created", () => {
-  it("a list of events is displayed", async () => {
+  it("a list of events is displayed", () => {
     render(< Home />)
     expect(screen.getByTestId("listEvents")).toBeInTheDocument()
     /* Test d'un événement présent dans la liste */
