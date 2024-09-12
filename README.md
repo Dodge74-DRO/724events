@@ -69,3 +69,25 @@ o	EventCard (style)
 §	Modification de l’aspect de l’image si mode ‘small’ pour affichage du milieu de l’image
 o	Mode responsive : problème affichage en mobile
 
+Ajout et corrections de tests :
+
+- Entête		/ MENU	
+					- vérifications de la présence des 4 liens de navigations
+					- tests des 3 liens en cas de click
+
+- Date 		/ HELPERS/DATE
+					- test du rendu des mois 'janvier' et 'décembre' selon des dates définies
+
+- Icônes 		/ ICON
+					- test de la présence de l'icône 'Facebook'
+
+- Galerie	 	/ EVENTS			
+					- correction de tests car étaient ignorés (skipped)
+
+- Page 		/ HOME 	
+					- vérifier la présence :
+						- d'une galerie d'évènements
+						- d'une liste des employés
+						- d'un pied de page
+						- de la carte du dernier événement
+

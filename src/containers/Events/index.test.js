@@ -40,7 +40,7 @@ const data = {
 describe("When Events is created", () => {
   it("a list of event card is displayed", async () => {
     api.loadData = jest.fn().mockReturnValue(data);
-    await act(async () => {
+    await act(async () => {   // act permet de s'assurer que les tâches sont terminés et les mises à jour effectuées
       render(
         <DataProvider>
           <Events />
@@ -51,7 +51,7 @@ describe("When Events is created", () => {
   });
   describe("and an error occured", () => {
     it("an error message is displayed", async () => {
-      api.loadData = jest.fn().mockRejectedValue(data);
+      api.loadData = jest.fn().mockRejectedValue(data); // ajout de data pour provoquer l'erreur !
       await act(async () => {
         render(
         <DataProvider>
@@ -63,7 +63,7 @@ describe("When Events is created", () => {
     });
   });
   describe("and we select a category", () => {
-    it("an filtered list is displayed", async () => {
+    it("an filtered list is displayed", async () => {  // suppression it.only pour passer tous les tests
       api.loadData = jest.fn().mockReturnValue(data);
       await act(async () => {
         render(

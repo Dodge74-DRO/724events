@@ -12,7 +12,7 @@ const Slider = () => {
   useEffect(() => {
     if (data?.focus) {
       const sortedData = [...data.focus].sort((evtA, evtB) => 
-        new Date(evtB.date) - new Date(evtA.date) // Tri décroissant
+        new Date(evtA.date) - new Date(evtB.date) // Tri par date croissante
       );
       setDataFocusSortedByDate(sortedData);
     }
